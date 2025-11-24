@@ -1,54 +1,48 @@
-# LAUNCHPAD
+# Launchpad Protocol
 
-**Audited Smart Contracts for Token Launchpad**
+[![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
+[![Contributing](https://img.shields.io/badge/contributing-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-This repository contains a suite of audited smart contracts for building a decentralized token launchpad on the Solana blockchain.
+The Launchpad Protocol is a suite of smart contracts on the Solana blockchain for creating and launching new tokens via a bonding curve mechanism. It provides a complete lifecycle for token launches, from initial sale to liquidity pool creation on Raydium.
 
 ## Features
 
--   **Secure by Design:** All contracts have undergone a security audit to ensure robustness and safety of funds.
--   **Customizable Sale Rounds:** Configure different phases for your token sale, such as seed, private, and public rounds.
--   **Vesting Schedules:** Built-in support for token vesting to manage token distribution over time.
--   **Whitelist & KYC:** Easily integrate with identity verification services to manage participant access.
+- **Token Creation**: Instantly create a new SPL token with metadata.
+- **Bonding Curve**: Automated price discovery and token distribution during the initial offering.
+- **Whitelist Support**: Securely manage pre-sale access using a Merkle tree for whitelisted addresses.
+- **Automated Liquidity Migration**: Seamlessly transfers collected SOL and remaining tokens to a Raydium CP (Constant Product) swap pool.
+- **Post-Migration Claims**: Allows initial buyers to claim their tokens after the liquidity pool is established.
+- **Configurable Parameters**: Flexible control for project owners to set fees, token reserves, and sale timelines.
+- **On-Chain Events**: Emits detailed events for every critical action, such as trades, migration, and claims.
 
-## Getting Started
+## Program
 
-### Prerequisites
+This repository contains the primary `launchpad` program.
 
--   [Rust](https://www.rust-lang.org/tools/install)
--   [Solana Tool Suite](https://docs.solana.com/cli/install-solana-cli-tools)
--   [Anchor Framework](https://www.anchor-lang.com/docs/installation)
+| Program | Description |
+| --- | --- |
+| `launchpad` | The core protocol for managing token launches on a bonding curve. |
 
-### Installation & Deployment
+## Core Instructions
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/LAUNCHPAD.git
-    cd LAUNCHPAD
-    ```
+The protocol exposes several key instructions to manage the token launch lifecycle:
 
-2.  **Build the smart contracts:**
-    ```bash
-    anchor build
-    ```
+- `initialize`: Initializes the global state for the protocol.
+- `create_token`: Creates a new token and its associated bonding curve with specified parameters.
+- `buy`: Allows users to purchase tokens with SOL from the bonding curve during the sale period.
+- `sell`: Allows users to sell their purchased tokens back to the curve before it completes.
+- `withdraw`: Executed after the sale ends to distribute creator tokens and platform fees.
+- `migrate_liquidity`: Migrates the assets from the bonding curve to a Raydium CP swap pool.
+- `claim`: Allows users to claim their purchased tokens after liquidity has been migrated.
 
-3.  **Run tests:**
-    ```bash
-    anchor test
-    ```
+## Audits
 
-4.  **Deploy to a local validator:**
-    ```bash
-    solana-test-validator
-    anchor deploy
-    ```
+The smart contracts have been audited to ensure security and reliability.
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache-2.0. See the [LICENSE](LICENSE) file for details.
