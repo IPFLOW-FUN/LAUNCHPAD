@@ -37,6 +37,8 @@ The protocol exposes several key instructions to manage the token launch lifecyc
 
 ## Audits
 
+* Exvul
+
 The smart contracts have been audited to ensure security and reliability.
 
 ## Contributing
